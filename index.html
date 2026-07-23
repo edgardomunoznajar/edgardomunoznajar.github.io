@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ed Galvez</title>
+<meta name="description" content="Ed Galvez — I turn illegible domains into legible structure. Forecasting, narrative graphs, legal data, agent tooling.">
+<style>
+  :root {
+    --bg: #faf9f6;
+    --fg: #1a1a1a;
+    --muted: #6b6b6b;
+    --accent: #2f5d50;
+    --card: #ffffff;
+    --border: #e4e1da;
+    --mono: "SF Mono", "Cascadia Code", "JetBrains Mono", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #101312;
+      --fg: #e8e6e1;
+      --muted: #9a9a92;
+      --accent: #7fb8a4;
+      --card: #181c1a;
+      --border: #2a2f2c;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 44rem; margin: 0 auto; padding: 5rem 1.5rem 4rem; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  header h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; }
+  header .tagline { margin-top: 0.75rem; font-size: 1.15rem; color: var(--muted); max-width: 36rem; }
+  header .loc { margin-top: 0.5rem; font-size: 0.85rem; color: var(--muted); font-family: var(--mono); }
+
+  section { margin-top: 3.5rem; }
+  h2 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+  }
+
+  .interests { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1rem; }
+  .interest {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.1rem 1.2rem;
+  }
+  .interest h3 { font-size: 0.95rem; font-weight: 650; margin-bottom: 0.3rem; }
+  .interest p { font-size: 0.87rem; color: var(--muted); }
+
+  .projects { display: flex; flex-direction: column; gap: 0.9rem; }
+  .project {
+    display: block;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    color: inherit;
+    transition: border-color 0.15s ease;
+  }
+  .project:hover { border-color: var(--accent); text-decoration: none; }
+  .project .name { font-family: var(--mono); font-size: 0.9rem; color: var(--accent); }
+  .project .desc { font-size: 0.9rem; color: var(--muted); margin-top: 0.2rem; }
+
+  .thesis {
+    border-left: 3px solid var(--accent);
+    padding: 0.2rem 0 0.2rem 1.2rem;
+    font-size: 1.02rem;
+  }
+  .thesis .quiet { color: var(--muted); }
+
+  footer {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.85rem;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Ed Galvez</h1>
+    <p class="tagline">I turn illegible domains into legible structure — novels, statutes, economies, markets.</p>
+    <p class="loc">Australia · <a href="https://github.com/edgardomunoznajar">github.com/edgardomunoznajar</a></p>
+  </header>
+
+  <section>
+    <h2>What I think about</h2>
+    <div class="thesis">
+      <p>Most interesting domains are graphs pretending to be prose.
+      <span class="quiet">A novel is a character network with a clock. A body of law is a dependency graph with jurisdiction edges. An economy is a system of equations arguing with itself. The work I enjoy is extracting that hidden structure and building tools on top of it.</span></p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Interests</h2>
+    <div class="interests">
+      <div class="interest">
+        <h3>Forecasting &amp; markets</h3>
+        <p>Macroeconometric models, prediction markets, and what it takes to make a forecast honest.</p>
+      </div>
+      <div class="interest">
+        <h3>Computational narratology</h3>
+        <p>Multilayer graphs extracted from novels; generating and analysing stories as structured objects.</p>
+      </div>
+      <div class="interest">
+        <h3>Civic &amp; legal data</h3>
+        <p>Statutory law as queryable infrastructure — hundreds of thousands of sections, one graph.</p>
+      </div>
+      <div class="interest">
+        <h3>Agent tooling</h3>
+        <p>Hooks, harnesses, and guardrails for AI coding agents — making autonomy verifiable.</p>
+      </div>
+      <div class="interest">
+        <h3>Privacy engineering</h3>
+        <p>Automated data-broker opt-outs; making the right to be forgotten executable.</p>
+      </div>
+      <div class="interest">
+        <h3>Writing</h3>
+        <p>Science fiction, built with the same graph tools I point at other people's novels.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Selected projects</h2>
+    <div class="projects">
+      <a class="project" href="https://github.com/edgardomunoznajar/opengem">
+        <span class="name">opengem</span>
+        <p class="desc">Open, vintage-correct, publicly-accountable macroeconometric forecasting system.</p>
+      </a>
+      <a class="project" href="https://github.com/edgardomunoznajar/america-law-graph">
+        <span class="name">america-law-graph</span>
+        <p class="desc">MCP server for US statutory law — 529K sections, 50 states plus federal.</p>
+      </a>
+      <a class="project" href="https://github.com/edgardomunoznajar/auto-identity-remove">
+        <span class="name">auto-identity-remove</span>
+        <p class="desc">Automated data-broker opt-out runner — removes your personal info from 30+ people-search sites on a schedule.</p>
+      </a>
+      <a class="project" href="https://github.com/edgardomunoznajar/claurst">
+        <span class="name">claurst</span>
+        <p class="desc">A terminal coding agent, written in Rust.</p>
+      </a>
+      <a class="project" href="https://github.com/edgardomunoznajar/blast-radius-hook">
+        <span class="name">blast-radius-hook</span>
+        <p class="desc">Claude Code hook that blocks the agent when it leaves uncovered callers behind.</p>
+      </a>
+      <a class="project" href="https://github.com/edgardomunoznajar/claude-playwright-video">
+        <span class="name">claude-playwright-video</span>
+        <p class="desc">Drop-in Playwright e2e tests with automatic WebM video recording for any Claude Code project.</p>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Ed Galvez</span>
+    <a href="https://github.com/edgardomunoznajar">GitHub</a>
+  </footer>
+</main>
+</body>
+</html>
