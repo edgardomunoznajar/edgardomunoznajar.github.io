@@ -2,108 +2,110 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Ed Galvez — fractal graphs</title>
-<meta name="description" content="Fractal graph art. Recursive structures in 3D.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ed Galvez</title>
+<meta name="description" content="Ed Galvez. Structure out of illegible domains, with fractal graphs behind it.">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body { height: 100%; background: #05060a; }
-  body { overflow-y: auto; overflow-x: hidden; }
-  canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; touch-action: none; z-index: 0; }
+  html { background: #05060a; }
+  body { color: #dfe4ee; font-family: -apple-system, "Segoe UI", Roboto, Helvetica, sans-serif; line-height: 1.65; }
+  canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; touch-action: none; }
 
-  main {
-    position: relative; z-index: 1; pointer-events: none;
-    min-height: 100%; display: flex; flex-direction: column; justify-content: space-between;
-    max-width: 44rem; margin: 0 auto;
-    padding: max(2.5rem, env(safe-area-inset-top)) 1.5rem max(1.5rem, env(safe-area-inset-bottom));
-    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, sans-serif;
-    color: #dfe4ee;
-    text-shadow: 0 1px 12px rgba(5, 6, 10, 0.9), 0 0 3px rgba(5, 6, 10, 0.9);
+  main { position: relative; z-index: 1; max-width: 42rem; margin: 0 auto; padding: 4rem 1.25rem 5rem; pointer-events: none; }
+  .panel {
+    pointer-events: auto;
+    background: rgba(8, 10, 16, 0.62);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 14px;
+    padding: 1.4rem 1.5rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
-  main a { color: #fff; pointer-events: auto; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: rgba(255,255,255,0.4); }
-  main a:hover { text-decoration-color: #fff; }
+  .panel + .panel { margin-top: 1.1rem; }
+  a { color: #fff; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: rgba(255,255,255,0.35); }
+  a:hover { text-decoration-color: #fff; }
 
-  h1 { font-size: 2.1rem; font-weight: 750; letter-spacing: -0.02em; }
-  .tagline { color: #b8c0d2; margin-top: 0.4rem; max-width: 30rem; }
-  .mode {
-    font-family: "SF Mono", Menlo, monospace; font-size: 0.68rem; color: #8a93a8;
-    letter-spacing: 0.2em; text-transform: uppercase; margin-top: 1rem; transition: opacity 0.4s;
+  h1 { font-size: 2rem; font-weight: 750; letter-spacing: -0.02em; }
+  .tagline { color: #b8c0d2; margin-top: 0.4rem; }
+  .mode-row { display: flex; align-items: center; gap: 0.8rem; margin-top: 1rem; flex-wrap: wrap; }
+  .mode { font-family: "SF Mono", Menlo, monospace; font-size: 0.68rem; color: #8a93a8; letter-spacing: 0.18em; text-transform: uppercase; transition: opacity 0.4s; }
+  button#mutate {
+    pointer-events: auto; cursor: pointer;
+    font-family: "SF Mono", Menlo, monospace; font-size: 0.7rem; letter-spacing: 0.12em;
+    color: #dfe4ee; background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.22); border-radius: 999px; padding: 0.35rem 0.9rem;
   }
+  button#mutate:hover { background: rgba(255,255,255,0.16); }
 
-  .bottom { display: flex; flex-direction: column; gap: 1.2rem; }
-  .projects { display: flex; flex-wrap: wrap; gap: 0.6rem 1.6rem; font-family: "SF Mono", Menlo, monospace; font-size: 0.85rem; }
-  .foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; font-size: 0.72rem; color: #8a93a8; font-family: "SF Mono", Menlo, monospace; letter-spacing: 0.1em; }
-  .foot a { color: #8a93a8; }
+  h2 { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; color: #8a93a8; margin-bottom: 0.9rem; }
+  .proj { padding: 0.7rem 0; border-top: 1px solid rgba(255,255,255,0.08); }
+  .proj:first-of-type { border-top: none; padding-top: 0; }
+  .proj .name { font-family: "SF Mono", Menlo, monospace; font-size: 0.9rem; }
+  .proj p { font-size: 0.88rem; color: #aab2c4; margin-top: 0.15rem; }
+
+  .about p { font-size: 0.92rem; color: #c3cadb; }
+  .about p + p { margin-top: 0.8rem; }
+  .about b { color: #fff; font-weight: 600; }
+
+  footer.panel { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; font-family: "SF Mono", Menlo, monospace; font-size: 0.72rem; color: #8a93a8; letter-spacing: 0.1em; }
+  footer.panel a { color: #8a93a8; }
 </style>
 </head>
 <body>
 <canvas id="c"></canvas>
 <main>
-  <header>
+  <header class="panel">
     <h1>Ed Galvez</h1>
     <p class="tagline">I turn illegible domains into structure. Novels, statutes, economies, markets. The background is the thesis, rendered.</p>
-    <div class="mode" id="modeName"></div>
+    <div class="mode-row">
+      <button id="mutate">mutate ⟳</button>
+      <span class="mode" id="modeName"></span>
+    </div>
   </header>
 
-  <div class="bottom">
-    <nav class="projects">
-      <a href="https://github.com/edgardomunoznajar/opengem">opengem</a>
-      <a href="https://github.com/edgardomunoznajar/america-law-graph">america-law-graph</a>
-      <a href="https://github.com/edgardomunoznajar/blast-radius-hook">blast-radius-hook</a>
-      <a href="https://github.com/edgardomunoznajar">github ↗</a>
-    </nav>
-    <div class="foot">
-      <span>tap: mutate · drag: spin · pinch: zoom</span>
-      <a href="index.html">home</a>
+  <section class="panel">
+    <h2>Building</h2>
+    <div class="proj">
+      <a class="name" href="https://github.com/edgardomunoznajar/opengem">opengem</a>
+      <p>Open, vintage-correct, publicly accountable macroeconometric forecasting. Auditable or it's an opinion.</p>
     </div>
-  </div>
+    <div class="proj">
+      <a class="name" href="https://github.com/edgardomunoznajar/america-law-graph">america-law-graph</a>
+      <p>US statutory law as queryable infrastructure. 529K sections, 50 states plus federal, over MCP.</p>
+    </div>
+    <div class="proj">
+      <a class="name" href="https://github.com/edgardomunoznajar/blast-radius-hook">blast-radius-hook</a>
+      <p>Blocks an AI coding agent that leaves uncovered callers behind. Coverage-gated autonomy.</p>
+    </div>
+  </section>
+
+  <section class="panel about">
+    <h2>Background</h2>
+    <p>13+ years putting <b>algorithmic decision-making into production</b>. Five years as a supply chain consultant deploying optimisation into some of the world's largest mining operations. Then government platforms and an ISO 27001 implementation. Now agentic AI under real compliance constraints.</p>
+    <p>Nights: mechanistic interpretability, narrative graphs extracted from novels, and science fiction written with the same machinery.</p>
+  </section>
+
+  <footer class="panel">
+    <span>© 2026 Ed Galvez</span>
+    <a href="https://github.com/edgardomunoznajar">github.com/edgardomunoznajar</a>
+  </footer>
 </main>
 
 <script>
 "use strict";
 
 // ---------- fractal graph generators ----------
-// each returns { nodes: [{x,y,z,d}], edges: [[i,j]], hue, name }
-
-function fractalTree() {
-  const nodes = [];
-  const edges = [];
-  function grow(x, y, z, dx, dy, dz, len, depth, parent) {
-    const nx = x + dx * len;
-    const ny = y + dy * len;
-    const nz = z + dz * len;
-    const idx = nodes.length;
-    nodes.push({ x: nx, y: ny, z: nz, d: depth });
-    if (parent >= 0) { edges.push([parent, idx]); }
-    if (depth >= 7) { return; }
-    const kids = 3;
-    for (let k = 0; k < kids; k++) {
-      const az = (k / kids) * Math.PI * 2 + depth * 0.9;
-      const tilt = 0.75;
-      // rotate direction away from parent axis
-      let ux = Math.cos(az), uy = 0, uz = Math.sin(az);
-      // blend parent direction with lateral spread
-      let ndx = dx * Math.cos(tilt) + ux * Math.sin(tilt);
-      let ndy = dy * Math.cos(tilt) + uy * Math.sin(tilt) + 0.12;
-      let ndz = dz * Math.cos(tilt) + uz * Math.sin(tilt);
-      const m = Math.sqrt(ndx * ndx + ndy * ndy + ndz * ndz);
-      grow(nx, ny, nz, ndx / m, ndy / m, ndz / m, len * 0.62, depth + 1, idx);
-    }
-  }
-  nodes.push({ x: 0, y: -1.1, z: 0, d: 0 });
-  grow(0, -1.1, 0, 0, 1, 0, 0.85, 1, 0);
-  return { nodes: nodes, edges: edges, hue: 145, name: "recursive tree · 3^7" };
-}
+// each returns { nodes: [{x,y,z}], edges: [[i,j]], hue, name }
 
 function sierpinskiTetra() {
   const nodes = [];
   const edges = [];
   const key = {};
-  function pt(x, y, z, d) {
+  function pt(x, y, z) {
     const k = x.toFixed(4) + "," + y.toFixed(4) + "," + z.toFixed(4);
     if (key[k] !== undefined) { return key[k]; }
     const idx = nodes.length;
-    nodes.push({ x: x, y: y, z: z, d: d });
+    nodes.push({ x: x, y: y, z: z });
     key[k] = idx;
     return idx;
   }
@@ -111,7 +113,7 @@ function sierpinskiTetra() {
   function tetra(v, depth) {
     if (depth === 0) {
       const ids = [];
-      for (let i = 0; i < 4; i++) { ids.push(pt(v[i][0], v[i][1], v[i][2], v[i][1])); }
+      for (let i = 0; i < 4; i++) { ids.push(pt(v[i][0], v[i][1], v[i][2])); }
       for (let i = 0; i < 4; i++) {
         for (let j = i + 1; j < 4; j++) { edges.push([ids[i], ids[j]]); }
       }
@@ -142,7 +144,7 @@ function fibonacciShell() {
     const y = (t * 2 - 1) * 1.1;
     const a = i * golden;
     const rr = r * Math.sqrt(Math.max(0.02, 1 - (y / 1.35) * (y / 1.35)));
-    nodes.push({ x: Math.cos(a) * rr, y: y, z: Math.sin(a) * rr, d: i });
+    nodes.push({ x: Math.cos(a) * rr, y: y, z: Math.sin(a) * rr });
     if (i >= 13) { edges.push([i, i - 13]); }
     if (i >= 21) { edges.push([i, i - 21]); }
   }
@@ -154,7 +156,7 @@ function starburst() {
   const edges = [];
   function burst(x, y, z, radius, depth, parent) {
     const idx = nodes.length;
-    nodes.push({ x: x, y: y, z: z, d: depth });
+    nodes.push({ x: x, y: y, z: z });
     if (parent >= 0) { edges.push([parent, idx]); }
     if (depth >= 4) { return; }
     const kids = 6;
@@ -178,7 +180,7 @@ function cantorRings() {
     const start = nodes.length;
     for (let i = 0; i < count; i++) {
       const a = (i / count) * Math.PI * 2;
-      nodes.push({ x: Math.cos(a) * radius, y: cy, z: Math.sin(a) * radius, d: depth });
+      nodes.push({ x: Math.cos(a) * radius, y: cy, z: Math.sin(a) * radius });
       if (i > 0) { edges.push([start + i - 1, start + i]); }
     }
     edges.push([start + count - 1, start]);
@@ -206,7 +208,7 @@ function cantorRings() {
   return { nodes: nodes, edges: edges, hue: 350, name: "cantor rings · binary halving" };
 }
 
-const GENERATORS = [fractalTree, sierpinskiTetra, fibonacciShell, starburst, cantorRings];
+const GENERATORS = [sierpinskiTetra, fibonacciShell, starburst, cantorRings];
 
 // ---------- engine ----------
 const canvas = document.getElementById("c");
@@ -231,7 +233,7 @@ let prevHue = current.hue;
 modeEl.textContent = current.name;
 
 let rotX = -0.35, rotY = 0.6;
-let velX = 0, velY = 0.0035;
+let velX = 0, velY = 0.0025;
 let zoom = 1;
 
 function setMode(i) {
@@ -263,6 +265,11 @@ sprite.width = 64; sprite.height = 64;
 function ease(t) { return t * t * (3 - 2 * t); }
 
 const proj = [];
+let reduceMotion = false;
+if (window.matchMedia) {
+  reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
 function frame() {
   requestAnimationFrame(frame);
   const n = current.nodes.length;
@@ -274,13 +281,15 @@ function frame() {
 
   // inertia
   rotY += velY; rotX += velX;
-  velX *= 0.95; velY = velY * 0.95 + 0.0002;
+  velX *= 0.95;
+  if (reduceMotion) { velY *= 0.95; }
+  else { velY = velY * 0.95 + 0.00013; }
   if (rotX > 1.4) { rotX = 1.4; }
   if (rotX < -1.4) { rotX = -1.4; }
 
   const cy = Math.cos(rotY), sy = Math.sin(rotY);
   const cx = Math.cos(rotX), sx = Math.sin(rotX);
-  const scale = Math.min(W, H) * 0.30 * zoom * DPR;
+  const scale = Math.min(W, H) * 0.34 * zoom * DPR;
   const cxp = canvas.width / 2, cyp = canvas.height / 2;
 
   ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -315,7 +324,7 @@ function frame() {
   for (let e = 0; e < edges.length; e++) {
     const a = proj[edges[e][0]], b = proj[edges[e][1]];
     const depth = (a.p + b.p) / 2;
-    const alpha = Math.max(0.04, (depth - 0.55) * 0.55);
+    const alpha = Math.max(0.04, (depth - 0.55) * 0.5);
     ctx.strokeStyle = "hsla(" + hue + ",85%,62%," + alpha + ")";
     ctx.lineWidth = Math.max(0.4, depth * 1.3) * DPR;
     ctx.beginPath();
@@ -328,7 +337,7 @@ function frame() {
   for (let i = 0; i < n; i++) {
     const p = proj[i];
     const r = Math.max(1.2, p.p * p.p * 3.2) * DPR;
-    ctx.globalAlpha = Math.max(0.08, (p.p - 0.5) * 0.9);
+    ctx.globalAlpha = Math.max(0.08, (p.p - 0.5) * 0.85);
     ctx.drawImage(sprite, p.x - r, p.y - r, r * 2, r * 2);
   }
   ctx.globalAlpha = 1;
@@ -337,6 +346,10 @@ function frame() {
 requestAnimationFrame(frame);
 
 // ---------- input ----------
+document.getElementById("mutate").addEventListener("click", function () {
+  setMode(modeIdx + 1);
+});
+
 const touches = {};
 let dragDist = 0;
 let pinchStart = 0;
@@ -361,8 +374,8 @@ canvas.addEventListener("pointermove", function (ev) {
   const dy = ev.clientY - t.y;
   const ids = Object.keys(touches);
   if (ids.length === 1) {
-    velY = dx * 0.00022 * 14;
-    velX = -dy * 0.00022 * 14;
+    velY = dx * 0.003;
+    velX = -dy * 0.003;
     dragDist += Math.abs(dx) + Math.abs(dy);
   }
   t.x = ev.clientX; t.y = ev.clientY;
@@ -383,10 +396,6 @@ function endPointer(ev) {
 }
 canvas.addEventListener("pointerup", endPointer);
 canvas.addEventListener("pointercancel", endPointer);
-
-window.addEventListener("wheel", function (ev) {
-  zoom = Math.max(0.4, Math.min(3.5, zoom * (1 - ev.deltaY * 0.001)));
-}, { passive: true });
 </script>
 
 <nav id="vswitch" style="position:fixed;bottom:14px;right:14px;z-index:99;display:flex;gap:6px;font-family:Menlo,monospace;font-size:12px;background:rgba(20,20,20,0.82);border:1px solid rgba(255,255,255,0.25);border-radius:999px;padding:6px 10px;backdrop-filter:blur(6px);">
