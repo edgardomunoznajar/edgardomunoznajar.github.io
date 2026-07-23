@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Ed Galvez — fractal graphs</title>
+<meta name="description" content="Fractal graph art. Recursive structures in 3D.">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; background: #05060a; }
+  body { overflow-y: auto; overflow-x: hidden; }
+  canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; touch-action: none; z-index: 0; }
+
+  main {
+    position: relative; z-index: 1; pointer-events: none;
+    min-height: 100%; display: flex; flex-direction: column; justify-content: space-between;
+    max-width: 44rem; margin: 0 auto;
+    padding: max(2.5rem, env(safe-area-inset-top)) 1.5rem max(1.5rem, env(safe-area-inset-bottom));
+    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, sans-serif;
+    color: #dfe4ee;
+    text-shadow: 0 1px 12px rgba(5, 6, 10, 0.9), 0 0 3px rgba(5, 6, 10, 0.9);
+  }
+  main a { color: #fff; pointer-events: auto; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: rgba(255,255,255,0.4); }
+  main a:hover { text-decoration-color: #fff; }
+
+  h1 { font-size: 2.1rem; font-weight: 750; letter-spacing: -0.02em; }
+  .tagline { color: #b8c0d2; margin-top: 0.4rem; max-width: 30rem; }
+  .mode {
+    font-family: "SF Mono", Menlo, monospace; font-size: 0.68rem; color: #8a93a8;
+    letter-spacing: 0.2em; text-transform: uppercase; margin-top: 1rem; transition: opacity 0.4s;
+  }
+
+  .bottom { display: flex; flex-direction: column; gap: 1.2rem; }
+  .projects { display: flex; flex-wrap: wrap; gap: 0.6rem 1.6rem; font-family: "SF Mono", Menlo, monospace; font-size: 0.85rem; }
+  .foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; font-size: 0.72rem; color: #8a93a8; font-family: "SF Mono", Menlo, monospace; letter-spacing: 0.1em; }
+  .foot a { color: #8a93a8; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<main>
+  <header>
+    <h1>Ed Galvez</h1>
+    <p class="tagline">I turn illegible domains into structure. Novels, statutes, economies, markets. The background is the thesis, rendered.</p>
+    <div class="mode" id="modeName"></div>
+  </header>
+
+  <div class="bottom">
+    <nav class="projects">
+      <a href="https://github.com/edgardomunoznajar/opengem">opengem</a>
+      <a href="https://github.com/edgardomunoznajar/america-law-graph">america-law-graph</a>
+      <a href="https://github.com/edgardomunoznajar/blast-radius-hook">blast-radius-hook</a>
+      <a href="https://github.com/edgardomunoznajar">github ↗</a>
+    </nav>
+    <div class="foot">
+      <span>tap: mutate · drag: spin · pinch: zoom</span>
+      <a href="index.html">home</a>
+    </div>
+  </div>
+</main>
+
+<script>
+"use strict";
+
+// ---------- fractal graph generators ----------
+// each returns { nodes: [{x,y,z,d}], edges: [[i,j]], hue, name }
+
+function fractalTree() {
+  const nodes = [];
+  const edges = [];
+  function grow(x, y, z, dx, dy, dz, len, depth, parent) {
+    const nx = x + dx * len;
+    const ny = y + dy * len;
+    const nz = z + dz * len;
+    const idx = nodes.length;
+    nodes.push({ x: nx, y: ny, z: nz, d: depth });
+    if (parent >= 0) { edges.push([parent, idx]); }
+    if (depth >= 7) { return; }
+    const kids = 3;
+    for (let k = 0; k < kids; k++) {
+      const az = (k / kids) * Math.PI * 2 + depth * 0.9;
+      const tilt = 0.75;
+      // rotate direction away from parent axis
+      let ux = Math.cos(az), uy = 0, uz = Math.sin(az);
+      // blend parent direction with lateral spread
+      let ndx = dx * Math.cos(tilt) + ux * Math.sin(tilt);
+      let ndy = dy * Math.cos(tilt) + uy * Math.sin(tilt) + 0.12;
+      let ndz = dz * Math.cos(tilt) + uz * Math.sin(tilt);
+      const m = Math.sqrt(ndx * ndx + ndy * ndy + ndz * ndz);
+      grow(nx, ny, nz, ndx / m, ndy / m, ndz / m, len * 0.62, depth + 1, idx);
+    }
+  }
+  nodes.push({ x: 0, y: -1.1, z: 0, d: 0 });
+  grow(0, -1.1, 0, 0, 1, 0, 0.85, 1, 0);
+  return { nodes: nodes, edges: edges, hue: 145, name: "recursive tree · 3^7" };
+}
+
+function sierpinskiTetra() {
+  const nodes = [];
+  const edges = [];
+  const key = {};
+  function pt(x, y, z, d) {
+    const k = x.toFixed(4) + "," + y.toFixed(4) + "," + z.toFixed(4);
+    if (key[k] !== undefined) { return key[k]; }
+    const idx = nodes.length;
+    nodes.push({ x: x, y: y, z: z, d: d });
+    key[k] = idx;
+    return idx;
+  }
+  function mid(a, b) { return [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2, (a[2] + b[2]) / 2]; }
+  function tetra(v, depth) {
+    if (depth === 0) {
+      const ids = [];
+      for (let i = 0; i < 4; i++) { ids.push(pt(v[i][0], v[i][1], v[i][2], v[i][1])); }
+      for (let i = 0; i < 4; i++) {
+        for (let j = i + 1; j < 4; j++) { edges.push([ids[i], ids[j]]); }
+      }
+      return;
+    }
+    for (let i = 0; i < 4; i++) {
+      const nv = [];
+      for (let j = 0; j < 4; j++) {
+        if (j === i) { nv.push(v[j]); }
+        else { nv.push(mid(v[i], v[j])); }
+      }
+      tetra(nv, depth - 1);
+    }
+  }
+  const s = 1.5;
+  tetra([[s, s, s], [s, -s, -s], [-s, s, -s], [-s, -s, s]], 4);
+  return { nodes: nodes, edges: edges, hue: 205, name: "sierpiński tetrahedron · depth 4" };
+}
+
+function fibonacciShell() {
+  const nodes = [];
+  const edges = [];
+  const N = 700;
+  const golden = Math.PI * (3 - Math.sqrt(5));
+  for (let i = 0; i < N; i++) {
+    const t = i / (N - 1);
+    const r = 0.15 + 1.45 * Math.pow(t, 0.7);
+    const y = (t * 2 - 1) * 1.1;
+    const a = i * golden;
+    const rr = r * Math.sqrt(Math.max(0.02, 1 - (y / 1.35) * (y / 1.35)));
+    nodes.push({ x: Math.cos(a) * rr, y: y, z: Math.sin(a) * rr, d: i });
+    if (i >= 13) { edges.push([i, i - 13]); }
+    if (i >= 21) { edges.push([i, i - 21]); }
+  }
+  return { nodes: nodes, edges: edges, hue: 40, name: "fibonacci shell · 13/21 lattice" };
+}
+
+function starburst() {
+  const nodes = [];
+  const edges = [];
+  function burst(x, y, z, radius, depth, parent) {
+    const idx = nodes.length;
+    nodes.push({ x: x, y: y, z: z, d: depth });
+    if (parent >= 0) { edges.push([parent, idx]); }
+    if (depth >= 4) { return; }
+    const kids = 6;
+    for (let k = 0; k < kids; k++) {
+      // spread children on a sphere via golden angle
+      const gy = 1 - (k / (kids - 1)) * 2;
+      const gr = Math.sqrt(1 - gy * gy);
+      const ga = k * 2.39996 + depth * 1.7;
+      burst(x + Math.cos(ga) * gr * radius, y + gy * radius, z + Math.sin(ga) * gr * radius, radius * 0.42, depth + 1, idx);
+    }
+  }
+  burst(0, 0, 0, 1.5, 0, -1);
+  return { nodes: nodes, edges: edges, hue: 285, name: "starburst · 6^4 dendrite" };
+}
+
+function cantorRings() {
+  const nodes = [];
+  const edges = [];
+  function ring(cy, radius, depth, parentRing) {
+    const count = Math.max(6, Math.round(radius * 26));
+    const start = nodes.length;
+    for (let i = 0; i < count; i++) {
+      const a = (i / count) * Math.PI * 2;
+      nodes.push({ x: Math.cos(a) * radius, y: cy, z: Math.sin(a) * radius, d: depth });
+      if (i > 0) { edges.push([start + i - 1, start + i]); }
+    }
+    edges.push([start + count - 1, start]);
+    if (parentRing) {
+      // stitch to parent ring at matching angles
+      const step = Math.max(1, Math.floor(count / 8));
+      for (let i = 0; i < count; i += step) {
+        const a = (i / count) * Math.PI * 2;
+        let best = parentRing.start;
+        let bd = 1e9;
+        for (let j = 0; j < parentRing.count; j++) {
+          const pa = (j / parentRing.count) * Math.PI * 2;
+          let da = Math.abs(pa - a);
+          if (da > Math.PI) { da = Math.PI * 2 - da; }
+          if (da < bd) { bd = da; best = parentRing.start + j; }
+        }
+        edges.push([start + i, best]);
+      }
+    }
+    if (depth >= 5) { return; }
+    ring(cy + radius * 0.62, radius / 2.1, depth + 1, { start: start, count: count });
+    ring(cy - radius * 0.62, radius / 2.1, depth + 1, { start: start, count: count });
+  }
+  ring(0, 1.35, 0, null);
+  return { nodes: nodes, edges: edges, hue: 350, name: "cantor rings · binary halving" };
+}
+
+const GENERATORS = [fractalTree, sierpinskiTetra, fibonacciShell, starburst, cantorRings];
+
+// ---------- engine ----------
+const canvas = document.getElementById("c");
+const ctx = canvas.getContext("2d");
+const modeEl = document.getElementById("modeName");
+let W = 0, H = 0, DPR = 1;
+
+function resize() {
+  DPR = Math.min(2, window.devicePixelRatio || 1);
+  W = window.innerWidth; H = window.innerHeight;
+  canvas.width = W * DPR; canvas.height = H * DPR;
+}
+window.addEventListener("resize", resize);
+resize();
+
+let modeIdx = 0;
+let current = GENERATORS[0]();
+let prev = null;
+let morphT = 1;
+let hue = current.hue;
+let prevHue = current.hue;
+modeEl.textContent = current.name;
+
+let rotX = -0.35, rotY = 0.6;
+let velX = 0, velY = 0.0035;
+let zoom = 1;
+
+function setMode(i) {
+  prev = current;
+  prevHue = hue;
+  modeIdx = i % GENERATORS.length;
+  current = GENERATORS[modeIdx]();
+  morphT = 0;
+  modeEl.style.opacity = 0;
+  setTimeout(function () {
+    modeEl.textContent = current.name;
+    modeEl.style.opacity = 1;
+  }, 400);
+}
+
+// pre-rendered glow sprite
+const sprite = document.createElement("canvas");
+sprite.width = 64; sprite.height = 64;
+(function () {
+  const s = sprite.getContext("2d");
+  const g = s.createRadialGradient(32, 32, 0, 32, 32, 32);
+  g.addColorStop(0, "rgba(255,255,255,1)");
+  g.addColorStop(0.25, "rgba(255,255,255,0.5)");
+  g.addColorStop(1, "rgba(255,255,255,0)");
+  s.fillStyle = g;
+  s.fillRect(0, 0, 64, 64);
+})();
+
+function ease(t) { return t * t * (3 - 2 * t); }
+
+const proj = [];
+function frame() {
+  requestAnimationFrame(frame);
+  const n = current.nodes.length;
+
+  // morph bookkeeping
+  if (morphT < 1) { morphT = Math.min(1, morphT + 0.02); }
+  const mt = ease(morphT);
+  hue = prevHue + (current.hue - prevHue) * mt;
+
+  // inertia
+  rotY += velY; rotX += velX;
+  velX *= 0.95; velY = velY * 0.95 + 0.0002;
+  if (rotX > 1.4) { rotX = 1.4; }
+  if (rotX < -1.4) { rotX = -1.4; }
+
+  const cy = Math.cos(rotY), sy = Math.sin(rotY);
+  const cx = Math.cos(rotX), sx = Math.sin(rotX);
+  const scale = Math.min(W, H) * 0.30 * zoom * DPR;
+  const cxp = canvas.width / 2, cyp = canvas.height / 2;
+
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.fillStyle = "#05060a";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.globalCompositeOperation = "lighter";
+
+  proj.length = n;
+  let pn = 0;
+  if (prev !== null && morphT < 1) { pn = prev.nodes.length; }
+
+  for (let i = 0; i < n; i++) {
+    const node = current.nodes[i];
+    let x = node.x, y = node.y, z = node.z;
+    if (pn > 0) {
+      const p = prev.nodes[i % pn];
+      x = p.x + (x - p.x) * mt;
+      y = p.y + (y - p.y) * mt;
+      z = p.z + (z - p.z) * mt;
+    }
+    // rotate Y then X
+    const x1 = x * cy + z * sy;
+    const z1 = -x * sy + z * cy;
+    const y1 = y * cx - z1 * sx;
+    const z2 = y * sx + z1 * cx;
+    const pers = 3.6 / (3.6 + z2);
+    proj[i] = { x: cxp + x1 * scale * pers, y: cyp - y1 * scale * pers, p: pers };
+  }
+
+  // edges
+  const edges = current.edges;
+  for (let e = 0; e < edges.length; e++) {
+    const a = proj[edges[e][0]], b = proj[edges[e][1]];
+    const depth = (a.p + b.p) / 2;
+    const alpha = Math.max(0.04, (depth - 0.55) * 0.55);
+    ctx.strokeStyle = "hsla(" + hue + ",85%,62%," + alpha + ")";
+    ctx.lineWidth = Math.max(0.4, depth * 1.3) * DPR;
+    ctx.beginPath();
+    ctx.moveTo(a.x, a.y);
+    ctx.lineTo(b.x, b.y);
+    ctx.stroke();
+  }
+
+  // nodes as glow sprites
+  for (let i = 0; i < n; i++) {
+    const p = proj[i];
+    const r = Math.max(1.2, p.p * p.p * 3.2) * DPR;
+    ctx.globalAlpha = Math.max(0.08, (p.p - 0.5) * 0.9);
+    ctx.drawImage(sprite, p.x - r, p.y - r, r * 2, r * 2);
+  }
+  ctx.globalAlpha = 1;
+  ctx.globalCompositeOperation = "source-over";
+}
+requestAnimationFrame(frame);
+
+// ---------- input ----------
+const touches = {};
+let dragDist = 0;
+let pinchStart = 0;
+let zoomStart = 1;
+
+canvas.addEventListener("pointerdown", function (ev) {
+  touches[ev.pointerId] = { x: ev.clientX, y: ev.clientY };
+  dragDist = 0;
+  const ids = Object.keys(touches);
+  if (ids.length === 2) {
+    const a = touches[ids[0]], b = touches[ids[1]];
+    pinchStart = Math.hypot(a.x - b.x, a.y - b.y);
+    zoomStart = zoom;
+  }
+  canvas.setPointerCapture(ev.pointerId);
+});
+
+canvas.addEventListener("pointermove", function (ev) {
+  const t = touches[ev.pointerId];
+  if (!t) { return; }
+  const dx = ev.clientX - t.x;
+  const dy = ev.clientY - t.y;
+  const ids = Object.keys(touches);
+  if (ids.length === 1) {
+    velY = dx * 0.00022 * 14;
+    velX = -dy * 0.00022 * 14;
+    dragDist += Math.abs(dx) + Math.abs(dy);
+  }
+  t.x = ev.clientX; t.y = ev.clientY;
+  if (ids.length === 2) {
+    const a = touches[ids[0]], b = touches[ids[1]];
+    const d = Math.hypot(a.x - b.x, a.y - b.y);
+    if (pinchStart > 0) {
+      zoom = Math.max(0.4, Math.min(3.5, zoomStart * d / pinchStart));
+    }
+  }
+});
+
+function endPointer(ev) {
+  delete touches[ev.pointerId];
+  if (Object.keys(touches).length === 0 && dragDist < 8) {
+    setMode(modeIdx + 1);
+  }
+}
+canvas.addEventListener("pointerup", endPointer);
+canvas.addEventListener("pointercancel", endPointer);
+
+window.addEventListener("wheel", function (ev) {
+  zoom = Math.max(0.4, Math.min(3.5, zoom * (1 - ev.deltaY * 0.001)));
+}, { passive: true });
+</script>
+
+<nav id="vswitch" style="position:fixed;bottom:14px;right:14px;z-index:99;display:flex;gap:6px;font-family:Menlo,monospace;font-size:12px;background:rgba(20,20,20,0.82);border:1px solid rgba(255,255,255,0.25);border-radius:999px;padding:6px 10px;backdrop-filter:blur(6px);">
+<a href="index.html" style="color:#bbb;text-decoration:none;padding:2px 8px;border-radius:999px;">v0</a>
+<a href="v1.html" style="color:#bbb;text-decoration:none;padding:2px 8px;border-radius:999px;">v1</a>
+<a href="v2.html" style="color:#bbb;text-decoration:none;padding:2px 8px;border-radius:999px;">v2</a>
+<a href="v3.html" style="color:#bbb;text-decoration:none;padding:2px 8px;border-radius:999px;">v3</a>
+<a href="v4.html" style="color:#bbb;text-decoration:none;padding:2px 8px;border-radius:999px;">v4</a>
+<a href="v5.html" style="color:#bbb;text-decoration:none;padding:2px 8px;border-radius:999px;">v5</a>
+<a href="v6.html" style="color:#bbb;text-decoration:none;padding:2px 8px;border-radius:999px;">v6</a>
+<span style="color:#fff;background:rgba(255,255,255,0.22);border-radius:999px;padding:2px 8px;">v7</span>
+</nav>
+</body>
+</html>
