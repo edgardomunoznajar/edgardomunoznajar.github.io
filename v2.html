@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ed Galvez</title>
+<meta name="description" content="Ed Galvez. Domains are graphs pretending to be prose.">
+<style>
+  :root {
+    --bg: #0c0e10;
+    --fg: #d6dade;
+    --muted: #7d848b;
+    --green: #55c58f;
+    --amber: #d9a441;
+    --blue: #6aa8d8;
+    --border: #22262b;
+    --mono: "SF Mono", "Cascadia Code", "JetBrains Mono", Menlo, monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--fg); font-family: var(--mono); line-height: 1.7; font-size: 0.92rem; }
+  main { max-width: 46rem; margin: 0 auto; padding: 4rem 1.5rem; }
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .prompt { color: var(--green); }
+  .comment { color: var(--muted); }
+  h1 { font-size: 1.1rem; font-weight: 600; }
+  h1::before { content: "$ whoami"; display: block; color: var(--muted); font-weight: 400; margin-bottom: 0.4rem; }
+  section { margin-top: 2.8rem; }
+  h2 { font-size: 0.92rem; font-weight: 600; color: var(--amber); margin-bottom: 1rem; }
+  h2::before { content: "## "; color: var(--muted); }
+  pre.graph { overflow-x: auto; color: var(--muted); line-height: 1.45; padding: 1rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.82rem; }
+  pre.graph b { color: var(--green); font-weight: 400; }
+  table { width: 100%; border-collapse: collapse; }
+  td { padding: 0.5rem 0.6rem 0.5rem 0; vertical-align: top; border-top: 1px solid var(--border); }
+  td:first-child { white-space: nowrap; }
+  .tag { color: var(--amber); }
+  footer { margin-top: 3.5rem; border-top: 1px solid var(--border); padding-top: 1rem; color: var(--muted); }
+  .cursor { display: inline-block; width: 0.55em; height: 1.05em; background: var(--green); vertical-align: text-bottom; animation: blink 1.1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>ed galvez <span class="comment"># builds structure out of messy domains</span></h1>
+  </header>
+
+  <section>
+    <h2>thesis</h2>
+    <p><span class="prompt">&gt;</span> most interesting domains are graphs pretending to be prose.</p>
+    <pre class="graph">
+   novels ────────► <b>narrative graphs</b>      characters, scenes, arcs as layers
+   statutes ──────► <b>law graph</b>             529K sections, jurisdiction edges
+   economies ─────► <b>macroeconometrics</b>     equations arguing with each other
+   markets ───────► <b>forecast monitors</b>     price as a probability update
+   codebases ─────► <b>blast radius</b>          every edit has a caller graph
+    </pre>
+    <p class="comment"># the job is always the same: extract the hidden graph, then build tools on it.</p>
+  </section>
+
+  <section>
+    <h2>projects</h2>
+    <table>
+      <tr><td><a href="https://github.com/edgardomunoznajar/opengem">opengem</a></td><td>open, vintage-correct macroeconometric forecasting. <span class="tag">[forecasting]</span></td></tr>
+      <tr><td><a href="https://github.com/edgardomunoznajar/america-law-graph">america-law-graph</a></td><td>MCP server for US statutory law. 529K sections. <span class="tag">[legal-data]</span></td></tr>
+      <tr><td><a href="https://github.com/edgardomunoznajar/blast-radius-hook">blast-radius-hook</a></td><td>blocks an AI coding agent that leaves uncovered callers behind. <span class="tag">[agent-tooling]</span></td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>also</h2>
+    <table>
+      <tr><td>interpretability</td><td>TransformerLens, sparse autoencoders. what is the model actually computing?</td></tr>
+      <tr><td>oblique agents</td><td>creative-divergence agents mixing Oblique Strategies, TRIZ, and noise injection.</td></tr>
+      <tr><td>fiction</td><td>writing science fiction with the same graph tools I point at other people's novels.</td></tr>
+      <tr><td>day job</td><td>13+ yrs shipping algorithmic decision systems. mining optimisation, then government AI.</td></tr>
+    </table>
+  </section>
+
+  <footer>
+    <span class="prompt">&gt;</span> <a href="https://github.com/edgardomunoznajar">github.com/edgardomunoznajar</a> <span class="cursor"></span>
+  </footer>
+</main>
+</body>
+</html>
