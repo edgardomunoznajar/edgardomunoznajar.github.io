@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ed Galvez</title>
+<meta name="description" content="Ed Galvez. A graph of interests: forecasting, law, narrative, agents, interpretability.">
+<style>
+  :root {
+    --bg: #10121a;
+    --fg: #dde1ec;
+    --muted: #8a90a3;
+    --edge: #2c3145;
+    --n1: #f2b544; /* forecasting */
+    --n2: #6ee7b7; /* law */
+    --n3: #c084fc; /* narrative */
+    --n4: #60a5fa; /* agents */
+    --n5: #f87171; /* interpretability */
+    --card: #171a26;
+    --border: #262b3d;
+    --sans: -apple-system, "Segoe UI", Roboto, Helvetica, sans-serif;
+    --mono: "SF Mono", Menlo, monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--fg); font-family: var(--sans); line-height: 1.65; }
+  main { max-width: 52rem; margin: 0 auto; padding: 3.5rem 1.5rem 4rem; }
+  a { color: inherit; }
+
+  header { text-align: center; }
+  h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; }
+  .sub { color: var(--muted); margin-top: 0.4rem; }
+  .sub a { color: var(--n4); text-decoration: none; }
+  .sub a:hover { text-decoration: underline; }
+
+  .graph-wrap { margin: 2.5rem auto 0; max-width: 40rem; }
+  svg { width: 100%; height: auto; display: block; }
+  .edge { stroke: var(--edge); stroke-width: 1.5; }
+  .node circle { transition: r 0.2s ease; cursor: default; }
+  .node text { fill: var(--fg); font-family: var(--mono); font-size: 11px; text-anchor: middle; }
+  .node .sublabel { fill: var(--muted); font-size: 9px; }
+  .node:hover circle { r: 26; }
+  .hub circle { fill: var(--bg); stroke: var(--fg); stroke-width: 2; }
+  .hub text { font-weight: 600; font-size: 12px; }
+  .legendline { text-align: center; color: var(--muted); font-size: 0.85rem; margin-top: 0.8rem; font-family: var(--mono); }
+
+  section { margin-top: 3rem; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1rem; }
+  .card { background: var(--card); border: 1px solid var(--border); border-top: 3px solid var(--border); border-radius: 10px; padding: 1.1rem 1.2rem; }
+  .card.c1 { border-top-color: var(--n1); }
+  .card.c2 { border-top-color: var(--n2); }
+  .card.c3 { border-top-color: var(--n3); }
+  .card.c4 { border-top-color: var(--n4); }
+  .card.c5 { border-top-color: var(--n5); }
+  .card h3 { font-size: 0.95rem; font-family: var(--mono); }
+  .card p { font-size: 0.88rem; color: var(--muted); margin-top: 0.3rem; }
+  .card a { color: var(--fg); text-decoration: underline; text-underline-offset: 3px; }
+  .card a:hover { color: var(--n4); }
+
+  .about { color: var(--muted); font-size: 0.95rem; max-width: 40rem; margin: 3rem auto 0; text-align: center; }
+  .about b { color: var(--fg); font-weight: 600; }
+  footer { margin-top: 3rem; text-align: center; color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--border); padding-top: 1.2rem; }
+  footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Ed Galvez</h1>
+    <p class="sub">Australia · <a href="https://github.com/edgardomunoznajar">github.com/edgardomunoznajar</a></p>
+  </header>
+
+  <div class="graph-wrap">
+    <svg viewBox="0 0 640 420" role="img" aria-label="A graph of interests connected to a central node labelled structure">
+      <line class="edge" x1="320" y1="210" x2="120" y2="80"/>
+      <line class="edge" x1="320" y1="210" x2="520" y2="80"/>
+      <line class="edge" x1="320" y1="210" x2="80" y2="290"/>
+      <line class="edge" x1="320" y1="210" x2="560" y2="290"/>
+      <line class="edge" x1="320" y1="210" x2="320" y2="370"/>
+      <line class="edge" x1="120" y1="80" x2="520" y2="80"/>
+      <line class="edge" x1="80" y1="290" x2="320" y2="370"/>
+
+      <g class="node">
+        <circle cx="120" cy="80" r="22" fill="var(--n1)"/>
+        <text x="120" y="38">forecasting</text>
+        <text class="sublabel" x="120" y="52">econometrics · markets</text>
+      </g>
+      <g class="node">
+        <circle cx="520" cy="80" r="22" fill="var(--n2)"/>
+        <text x="520" y="38">law</text>
+        <text class="sublabel" x="520" y="52">529K sections, one graph</text>
+      </g>
+      <g class="node">
+        <circle cx="80" cy="290" r="22" fill="var(--n3)"/>
+        <text x="80" y="248">narrative</text>
+        <text class="sublabel" x="80" y="262">novels as data</text>
+      </g>
+      <g class="node">
+        <circle cx="560" cy="290" r="22" fill="var(--n4)"/>
+        <text x="560" y="248">agents</text>
+        <text class="sublabel" x="560" y="262">verifiable autonomy</text>
+      </g>
+      <g class="node">
+        <circle cx="320" cy="370" r="22" fill="var(--n5)"/>
+        <text x="320" y="410">interpretability</text>
+      </g>
+      <g class="node hub">
+        <circle cx="320" cy="210" r="30"/>
+        <text x="320" y="214">structure</text>
+      </g>
+    </svg>
+    <p class="legendline"># every interesting domain is a graph pretending to be prose</p>
+  </div>
+
+  <section>
+    <div class="cards">
+      <div class="card c1">
+        <h3><a href="https://github.com/edgardomunoznajar/opengem">opengem</a></h3>
+        <p>Open, vintage-correct, publicly accountable macroeconometric forecasting. Auditable or it's an opinion.</p>
+      </div>
+      <div class="card c2">
+        <h3><a href="https://github.com/edgardomunoznajar/america-law-graph">america-law-graph</a></h3>
+        <p>US statutory law as queryable infrastructure. 529K sections, 50 states plus federal, over MCP.</p>
+      </div>
+      <div class="card c4">
+        <h3><a href="https://github.com/edgardomunoznajar/blast-radius-hook">blast-radius-hook</a></h3>
+        <p>Blocks an AI coding agent that leaves uncovered callers behind. Coverage-gated autonomy.</p>
+      </div>
+      <div class="card c3">
+        <h3>narrative graphs</h3>
+        <p>Multilayer graphs extracted from novels. The same machinery runs in reverse to write science fiction.</p>
+      </div>
+      <div class="card c5">
+        <h3>interpretability</h3>
+        <p>TransformerLens and sparse autoencoders. What is the model actually computing?</p>
+      </div>
+    </div>
+  </section>
+
+  <p class="about">13+ years putting <b>algorithmic decision-making into production</b>. Heuristic and simplex optimisation in mining and heavy industry, then government platforms, now agentic AI under real compliance constraints.</p>
+
+  <footer>
+    © 2026 Ed Galvez · <a href="https://github.com/edgardomunoznajar">GitHub</a>
+  </footer>
+</main>
+</body>
+</html>

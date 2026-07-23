@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ed Galvez</title>
+<meta name="description" content="Ed Galvez. Engineer, researcher, and writer.">
+<style>
+  :root {
+    --bg: #f7f3ec;
+    --fg: #2b2620;
+    --muted: #857c6e;
+    --accent: #4a5d43;
+    --rule: #d8d0c2;
+    --serif: "Baskerville", "Times New Roman", Georgia, serif;
+    --small: 0.82rem;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #1b1916; --fg: #e8e2d6; --muted: #9c937f; --accent: #a8bd9c; --rule: #37332c; }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--fg); font-family: var(--serif); font-size: 1.12rem; line-height: 1.8; }
+  main { max-width: 41rem; margin: 0 auto; padding: 5rem 1.5rem; }
+  a { color: var(--accent); }
+
+  .kicker { text-align: center; font-variant: small-caps; letter-spacing: 0.35em; font-size: var(--small); color: var(--muted); }
+  h1 { text-align: center; font-size: 3rem; font-weight: 500; letter-spacing: 0.02em; margin-top: 0.6rem; }
+  .rule { display: flex; align-items: center; gap: 1rem; margin: 2rem 0; color: var(--muted); }
+  .rule::before, .rule::after { content: ""; flex: 1; border-top: 1px solid var(--rule); }
+
+  .lede::first-letter { font-size: 3.4em; float: left; line-height: 0.82; padding-right: 0.12em; color: var(--accent); }
+  p + p { margin-top: 1.1rem; }
+
+  h2 { font-variant: small-caps; letter-spacing: 0.25em; font-weight: 500; font-size: 0.95rem; text-align: center; color: var(--muted); margin: 3rem 0 1.4rem; }
+
+  .entry { margin-top: 1.6rem; }
+  .entry h3 { font-size: 1.15rem; font-weight: 600; font-style: italic; }
+  .entry p { font-size: 1rem; color: var(--fg); }
+  .entry .where { font-size: var(--small); color: var(--muted); font-style: italic; }
+
+  blockquote { margin: 2.6rem 1.5rem; font-style: italic; text-align: center; font-size: 1.25rem; line-height: 1.6; color: var(--accent); }
+
+  footer { margin-top: 4rem; text-align: center; font-size: var(--small); color: var(--muted); }
+  footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <p class="kicker">Australia</p>
+  <h1>Ed Galvez</h1>
+  <div class="rule">❦</div>
+
+  <p class="lede">For thirteen years I have made machines decide things, and made the deciding trustworthy. It began with optimisation engines scheduling some of the largest mining operations in the world. Trucks moved because an algorithm said so. It continues now with AI agents working inside government systems, where the stakes are cases and people rather than ore.</p>
+
+  <p>Along the way I noticed that every domain I loved had the same shape. A novel is a character network with a clock. A body of law is a dependency graph with jurisdiction edges. An economy is a system of equations arguing with itself. The work I keep returning to is extracting that hidden structure and building instruments on top of it.</p>
+
+  <blockquote>Every interesting domain is a graph pretending to be prose.</blockquote>
+
+  <h2>Instruments</h2>
+
+  <div class="entry">
+    <h3><a href="https://github.com/edgardomunoznajar/opengem">Opengem</a></h3>
+    <p>An open, vintage-correct, publicly accountable macroeconometric forecasting system. Forecasts should be auditable, or they are merely opinions dressed in confidence intervals.</p>
+    <p class="where">Forecasting · Python</p>
+  </div>
+
+  <div class="entry">
+    <h3><a href="https://github.com/edgardomunoznajar/america-law-graph">America Law Graph</a></h3>
+    <p>The statutory law of the United States as queryable infrastructure. Five hundred and twenty-nine thousand sections, fifty states and the federal code, served to any model that asks.</p>
+    <p class="where">Legal data · MCP</p>
+  </div>
+
+  <div class="entry">
+    <h3><a href="https://github.com/edgardomunoznajar/blast-radius-hook">Blast Radius</a></h3>
+    <p>A guardrail for AI coding agents. It computes the blast radius of every edit and refuses to let the agent finish while callers are left untested. Autonomy should be verifiable.</p>
+    <p class="where">Agent tooling · Claude Code</p>
+  </div>
+
+  <h2>Preoccupations</h2>
+
+  <div class="entry">
+    <h3>Interpretability</h3>
+    <p>Mechanistic interpretability with TransformerLens and sparse autoencoders. Before trusting a model with decisions, one should ask what it is actually computing.</p>
+  </div>
+
+  <div class="entry">
+    <h3>Narratology</h3>
+    <p>Multilayer graphs extracted from novels. Characters, scenes, and arcs rendered as data. The same machinery runs in reverse, and with it I write science fiction.</p>
+  </div>
+
+  <div class="entry">
+    <h3>Obliquity</h3>
+    <p>Agents built on Oblique Strategies, TRIZ, and injected noise, designed to produce genuine creative variance rather than the model's median idea.</p>
+  </div>
+
+  <div class="rule">❦</div>
+  <footer>
+    <a href="https://github.com/edgardomunoznajar">github.com/edgardomunoznajar</a><br>
+    © 2026 Ed Galvez
+  </footer>
+</main>
+</body>
+</html>
