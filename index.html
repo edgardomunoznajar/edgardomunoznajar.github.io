@@ -3,8 +3,28 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ed Galvez</title>
-<meta name="description" content="Ed Galvez — I turn illegible domains into legible structure. Forecasting, narrative graphs, legal data, agent tooling.">
+<title>Ed Galvez — government-platform AI and compliance builder</title>
+<link rel="canonical" href="https://edgardomunoznajar.github.io/">
+<meta name="description" content="Ed Galvez leads AI adoption strategy and holds the ISO 27001 lead role inside a government platform team, and ships the agentic systems he recommends.">
+<meta name="author" content="Ed Galvez">
+
+<!-- Open Graph -->
+<meta property="og:type" content="profile">
+<meta property="og:url" content="https://edgardomunoznajar.github.io/">
+<meta property="og:title" content="Ed Galvez — government-platform AI and compliance builder">
+<meta property="og:description" content="Leads AI adoption strategy and holds the ISO 27001 lead role inside a government platform team. Ships the agentic systems he recommends.">
+<meta property="profile:first_name" content="Ed">
+<meta property="profile:last_name" content="Galvez">
+<!-- ED: no og:image shipped — 0.4 (og.png) undecided. If you approve a 1200x630 image later,
+     add og:image / twitter:image here and switch twitter:card back to summary_large_image.
+     Per the implementation plan (docs/strategy/personal-branding-implementation-plan.md §6.1),
+     do not point summary_large_image at a file that doesn't exist. -->
+
+<!-- Twitter/X -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ed Galvez — government-platform AI and compliance builder">
+<meta name="twitter:description" content="Leads AI adoption strategy and holds the ISO 27001 lead role inside a government platform team. Ships the agentic systems he recommends.">
+
 <style>
   :root {
     --bg: #faf9f6;
@@ -39,7 +59,8 @@
 
   header h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; }
   header .tagline { margin-top: 0.75rem; font-size: 1.15rem; color: var(--muted); max-width: 36rem; }
-  header .loc { margin-top: 0.5rem; font-size: 0.85rem; color: var(--muted); font-family: var(--mono); }
+  header .lede { margin-top: 1.1rem; font-size: 1rem; max-width: 38rem; }
+  header .loc { margin-top: 0.9rem; font-size: 0.85rem; color: var(--muted); font-family: var(--mono); }
 
   section { margin-top: 3.5rem; }
   h2 {
@@ -50,6 +71,8 @@
     color: var(--muted);
     margin-bottom: 1.25rem;
   }
+  section p { max-width: 40rem; }
+  section p + p { margin-top: 0.9rem; }
 
   .interests { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1rem; }
   .interest {
@@ -71,7 +94,7 @@
     color: inherit;
     transition: border-color 0.15s ease;
   }
-  .project:hover { border-color: var(--accent); text-decoration: none; }
+  a.project:hover { border-color: var(--accent); text-decoration: none; }
   .project .name { font-family: var(--mono); font-size: 0.9rem; color: var(--accent); }
   .project .desc { font-size: 0.9rem; color: var(--muted); margin-top: 0.2rem; }
 
@@ -80,7 +103,18 @@
     padding: 0.2rem 0 0.2rem 1.2rem;
     font-size: 1.02rem;
   }
-  .thesis .quiet { color: var(--muted); }
+
+  .cta-wrap { margin-top: 2.5rem; }
+  .cta {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--bg);
+    font-weight: 600;
+    padding: 0.75rem 1.3rem;
+    border-radius: 999px;
+    font-size: 0.95rem;
+  }
+  .cta:hover { text-decoration: none; opacity: 0.9; }
 
   footer {
     margin-top: 4rem;
@@ -99,82 +133,117 @@
 <main>
   <header>
     <h1>Ed Galvez</h1>
-    <p class="tagline">I turn illegible domains into legible structure — novels, statutes, economies, markets.</p>
-    <p class="loc">Australia · <a href="https://github.com/edgardomunoznajar">github.com/edgardomunoznajar</a></p>
+    <p class="tagline">Government-platform AI and compliance builder. Ships what he recommends.</p>
+    <!-- ED: confirm before push — Airlock disclosure (Gap G10). This paragraph describes
+         Airlock's constitution, blocklist, and founding-gate rejection as structural facts.
+         See docs/strategy/personal-branding-morning-review-2026-08-14.md, decision 4. -->
+    <p class="lede">Ed Galvez leads AI adoption strategy and holds the ISO 27001 lead role inside a
+    government platform team — and he ships the agentic systems he recommends, including
+    Airlock, a running 16-agent operation with a written constitution, a human-review
+    blocklist, and an audit trail.</p>
+    <p class="loc">Australia · <a href="https://github.com/edgardomunoznajar">github.com/edgardomunoznajar</a> · [LinkedIn — ED: confirm URL] · [email — ED: confirm]</p>
   </header>
 
   <section>
-    <h2>What I think about</h2>
+    <!-- ED: confirm before push — same Gap G10 as above; this paragraph also names Airlock's
+         constitution / blocklist / founding-gate rejection. -->
     <div class="thesis">
-      <p>Most interesting domains are graphs pretending to be prose.
-      <span class="quiet">A novel is a character network with a clock. A body of law is a dependency graph with jurisdiction edges. An economy is a system of equations arguing with itself. The work I enjoy is extracting that hidden structure and building tools on top of it.</span></p>
+      <p>I sit inside the compliance function I'd otherwise be advising from outside. I hold the
+      ISO 27001 lead role and run AI adoption strategy for a government platform team — and
+      when I recommend an approach, I build it myself rather than handing a diagram to someone
+      else. Airlock, a running multi-agent operation with a written constitution and a
+      human-review blocklist, is the clearest example: it's not a pitch deck, it's a system
+      that has actually exercised its own reject-by-default founding gate on a real proposal.</p>
     </div>
   </section>
 
   <section>
-    <h2>Interests</h2>
-    <div class="interests">
-      <div class="interest">
-        <h3>Forecasting &amp; markets</h3>
-        <p>Macroeconometric models, prediction markets, and what it takes to make a forecast honest.</p>
-      </div>
-      <div class="interest">
-        <h3>Computational narratology</h3>
-        <p>Multilayer graphs extracted from novels; generating and analysing stories as structured objects.</p>
-      </div>
-      <div class="interest">
-        <h3>Civic &amp; legal data</h3>
-        <p>Statutory law as queryable infrastructure — hundreds of thousands of sections, one graph.</p>
-      </div>
-      <div class="interest">
-        <h3>Agent tooling</h3>
-        <p>Hooks, harnesses, and guardrails for AI coding agents — making autonomy verifiable.</p>
-      </div>
-      <div class="interest">
-        <h3>Privacy engineering</h3>
-        <p>Automated data-broker opt-outs; making the right to be forgotten executable.</p>
-      </div>
-      <div class="interest">
-        <h3>Writing</h3>
-        <p>Science fiction, built with the same graph tools I point at other people's novels.</p>
-      </div>
+    <h2>Ships agentic systems — not just recommends them</h2>
+    <p>Airlock is a running multi-agent operation: a written constitution, a human-review
+    blocklist, spend controls under a ledger, and an audit trail — built and operated, not
+    demoed. It has rejected its own proposals under a reject-by-default founding gate.</p>
+    <p>Beyond Airlock: americalawgraph.ai turns US statutory law into a queryable graph — 529K
+    sections, 487K cross-references, an MCP server, semantic retrieval, a fine-tuned
+    classifier, solo-built, with an Australian edition in progress. blast-radius-hook is a
+    Claude Code hook that stops an agent ending its turn if it left callers without test
+    coverage — built because I kept catching that mistake by hand.</p>
+  </section>
+
+  <section>
+    <h2>Sits inside the compliance function, not adjacent to it</h2>
+    <p>ISO 27001, led from scratch. AI adoption strategy inside a government platform team.
+    AWS Bedrock rollout architecture, cost model, and governance guardrails for a 20-person
+    engineering team. Government case-management migration work verifying hundreds of
+    thousands of data relationships end to end. [ED: confirm — nameable artifact/detail
+    pending]</p>
+  </section>
+
+  <section>
+    <h2>Production credibility that predates the LLM wave</h2>
+    <p>13 years putting algorithmic decision-making into production. Seven of them client-facing
+    at AVEVA and Schneider Electric — Technical Officer to Global Solutions Architect —
+    deploying optimisation systems into some of the world's largest mining operations. One
+    integration for a Tier 1 miner cut load rejection from 9% to 2%.</p>
+
+    <!-- ED: confirm contact email/alias before push (pack item 3). The address below is a
+         placeholder, not a real mailbox — swap it for the alias you choose. -->
+    <div class="cta-wrap">
+      <a class="cta" href="mailto:ED-CONFIRM-EMAIL@example.com?subject=AI%20governance%20teardown">Book a free 30-minute AI governance teardown &rarr;</a>
     </div>
   </section>
 
   <section>
     <h2>Selected projects</h2>
     <div class="projects">
+      <!-- ED: confirm before push — same Gap G10. Airlock is currently unpublished, so this
+           card is intentionally not a link (no public URL exists yet). If G10 clears and
+           Airlock stays private, keep it text-only like this; if it's ever made public, add
+           the repo URL here as a deliberate publish decision, not a default. -->
+      <div class="project">
+        <span class="name">Airlock</span>
+        <p class="desc">A running multi-agent operation: written constitution, human-review
+        blocklist, spend ledger, audit trail. Built and operated, not demoed. Currently
+        unpublished — described here, not linked.</p>
+      </div>
+      <a class="project" href="https://americalawgraph.ai">
+        <span class="name">americalawgraph.ai</span>
+        <p class="desc">US statutory law turned into a queryable graph — 529K sections, 487K
+        cross-references, an MCP server, semantic retrieval, a fine-tuned classifier.
+        Solo-built, Australian edition in progress.</p>
+      </a>
+      <a class="project" href="https://github.com/edgardomunoznajar/blast-radius-hook">
+        <span class="name">blast-radius-hook</span>
+        <p class="desc">Claude Code hook that blocks the agent when it leaves uncovered callers behind.</p>
+      </a>
       <a class="project" href="https://github.com/edgardomunoznajar/opengem">
         <span class="name">opengem</span>
         <p class="desc">Open, vintage-correct, publicly-accountable macroeconometric forecasting system.</p>
       </a>
-      <a class="project" href="https://github.com/edgardomunoznajar/america-law-graph">
-        <span class="name">america-law-graph</span>
-        <p class="desc">MCP server for US statutory law — 529K sections, 50 states plus federal.</p>
-      </a>
-<a class="project" href="https://github.com/edgardomunoznajar/blast-radius-hook">
-        <span class="name">blast-radius-hook</span>
-        <p class="desc">Claude Code hook that blocks the agent when it leaves uncovered callers behind.</p>
-      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>What else I build</h2>
+    <div class="interests">
+      <div class="interest">
+        <h3>Narrative graphs</h3>
+        <p>Multilayer graphs extracted from novels — characters, scenes, and arcs turned into structured data.</p>
+      </div>
+      <div class="interest">
+        <h3>Science fiction</h3>
+        <p>Writing it, with help from the same graph tools run backwards.</p>
+      </div>
+      <div class="interest">
+        <h3>Generative art</h3>
+        <p>Fractal graph generators — the same structure-finding habit, pointed at itself.</p>
+      </div>
     </div>
   </section>
 
   <footer>
     <span>© 2026 Ed Galvez</span>
-    <a href="https://github.com/edgardomunoznajar">GitHub</a>
+    <span><a href="https://github.com/edgardomunoznajar">GitHub</a> · [LinkedIn — ED: confirm] · [Email — ED: confirm] · [CV — ED: confirm]</span>
   </footer>
 </main>
-
-
-<nav id="vswitch" style="position:fixed;bottom:14px;right:14px;z-index:99;display:flex;gap:6px;font-family:Menlo,monospace;font-size:12px;background:rgba(20,20,20,0.82);border:1px solid rgba(255,255,255,0.25);border-radius:999px;padding:6px 10px;backdrop-filter:blur(6px);">
-<span style="color:#fff;background:rgba(255,255,255,0.22);border-radius:999px;padding:2px 8px;">v0</span>
-<a href="v1.html" style="color:#bbb;text-decoration:none;padding:2px 8px;border-radius:999px;">v1</a>
-<a href="v2.html" style="color:#bbb;text-decoration:none;padding:2px 8px;border-radius:999px;">v2</a>
-<a href="v3.html" style="color:#bbb;text-decoration:none;padding:2px 8px;border-radius:999px;">v3</a>
-<a href="v4.html" style="color:#bbb;text-decoration:none;padding:2px 8px;border-radius:999px;">v4</a>
-<a href="v5.html" style="color:#bbb;text-decoration:none;padding:2px 8px;border-radius:999px;">v5</a>
-<a href="v6.html" style="color:#bbb;text-decoration:none;padding:2px 8px;border-radius:999px;">v6</a>
-<a href="v7.html" style="color:#bbb;text-decoration:none;padding:2px 8px;border-radius:999px;">v7</a>
-</nav>
 </body>
 </html>
