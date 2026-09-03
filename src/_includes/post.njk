@@ -1,0 +1,50 @@
+{#-
+  Post layout, carried over from the retired posts/_template.html. A post
+  supplies title, summary and date as front matter and its body as Markdown;
+  everything here is what the hand-substituted placeholders used to be.
+
+  og:image / summary_large_image from the old template are deliberately gone:
+  the repo ships no og-image.png, and the home page records the rule — never
+  point a card at a file that does not exist. twitter:card is "summary" to
+  match the home page until an image is approved.
+-#}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ title }} - Ed Galvez</title>
+<meta name="description" content="{{ summary }}">
+<meta name="author" content="Ed Galvez">
+<link rel="canonical" href="https://edgardomunoznajar.github.io/posts/{{ page.fileSlug }}.html">
+<meta name="robots" content="index, follow">
+<link rel="alternate" type="application/atom+xml" title="Ed Galvez — writing" href="/feed.xml">
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://edgardomunoznajar.github.io/posts/{{ page.fileSlug }}.html">
+<meta property="og:title" content="{{ title }}">
+<meta property="og:description" content="{{ summary }}">
+<meta property="og:site_name" content="Ed Galvez">
+<meta name="twitter:card" content="summary">
+<meta property="article:published_time" content="{{ page.date | isoDate }}">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+
+<article>
+  <h1>{{ title }}</h1>
+  <div class="meta"><time datetime="{{ page.date | isoDate }}">{{ page.date | textDate }}</time></div>
+
+  {{ content | safe }}
+
+</article>
+
+<footer>
+  <a href="./">&larr; all writing</a> &middot; <a href="../">Ed Galvez</a>
+</footer>
+
+</div>
+</body>
+</html>

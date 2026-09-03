@@ -1,3 +1,10 @@
+---
+permalink: /posts/index.html
+eleventyExcludeFromCollections: true
+---
+{#- The writing index, generated from the post collection. Newest first,
+    same URL and same markup shapes the hand-edited page used, so nothing
+    that linked here notices the generator. -#}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,17 +12,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Writing - Ed Galvez</title>
 <meta name="description" content="Notes on measuring AI-attributed commits on public GitHub: what the numbers say, what the instrument can and cannot see.">
-<meta name="author" content="Edgardo Munoz">
+<meta name="author" content="Ed Galvez">
 <link rel="canonical" href="https://edgardomunoznajar.github.io/posts/">
 <meta name="robots" content="index, follow">
+<link rel="alternate" type="application/atom+xml" title="Ed Galvez — writing" href="/feed.xml">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://edgardomunoznajar.github.io/posts/">
 <meta property="og:title" content="Writing - Ed Galvez">
 <meta property="og:description" content="Notes on measuring AI-attributed commits on public GitHub.">
 <meta property="og:site_name" content="Ed Galvez">
-<meta property="og:image" content="https://edgardomunoznajar.github.io/og-image.png">
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary">
 
 <link rel="stylesheet" href="style.css">
 </head>
@@ -28,22 +35,23 @@
   <a class="backlink" href="../">&larr; back to ed galvez</a>
 </header>
 
-<!--
-  Posts are listed newest first.
-
-  To publish a post, add one <li> immediately after the POSTS:BEGIN marker
-  below and delete the .empty block if it is still present. The markers are
-  what makes this file safe to edit programmatically — insert between them
-  and nothing else on the page is disturbed. See README.md in this directory.
--->
 <ul class="posts">
-<!-- POSTS:BEGIN -->
-<!-- POSTS:END -->
+{%- for post in collections.post | reverse %}
+  <li>
+    <h2><a href="{{ post.page.fileSlug }}.html">{{ post.data.title }}</a></h2>
+    <time datetime="{{ post.page.date | isoDate }}">{{ post.page.date | textDate }}</time>
+    <p>{{ post.data.summary }}</p>
+  </li>
+{%- endfor %}
 </ul>
 
+{#- The collection key only exists once a first post does, so the empty
+    state has to test absence as well as emptiness. -#}
+{%- if (not collections.post) or collections.post.length == 0 %}
 <div class="empty">
   Nothing published yet.
 </div>
+{%- endif %}
 
 <footer>
   <a href="../">Ed Galvez</a> &middot; <a href="https://github.com/edgardomunoznajar">GitHub</a>

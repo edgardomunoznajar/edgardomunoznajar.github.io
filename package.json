@@ -1,0 +1,22 @@
+{
+  "name": "edgardomunoznajar-github-io",
+  "version": "1.0.0",
+  "description": "Ed Galvez's personal site and blog, built with Eleventy",
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edgardomunoznajar/edgardomunoznajar.github.io.git"
+  },
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/edgardomunoznajar/edgardomunoznajar.github.io/issues"
+  },
+  "homepage": "https://github.com/edgardomunoznajar/edgardomunoznajar.github.io#readme",
+  "devDependencies": {
+    "@11ty/eleventy": "3.1.6"
+  },
+  "private": true
+}

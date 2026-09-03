@@ -1,0 +1,29 @@
+---
+permalink: /feed.xml
+eleventyExcludeFromCollections: true
+---
+{#- Atom, not RSS 2.0: RFC-3339 dates come straight from the post dates with
+    no timezone arithmetic, and every consumer that matters reads both. -#}
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Ed Galvez — writing</title>
+  <link href="https://edgardomunoznajar.github.io/feed.xml" rel="self"/>
+  <link href="https://edgardomunoznajar.github.io/posts/"/>
+  <id>https://edgardomunoznajar.github.io/posts/</id>
+{%- if collections.post.length > 0 %}
+  {%- set newest = collections.post | reverse | first %}
+  <updated>{{ newest.page.date | rfc3339 }}</updated>
+{%- else %}
+  <updated>2026-09-03T00:00:00.000Z</updated>
+{%- endif %}
+  <author><name>Ed Galvez</name></author>
+{%- for post in collections.post | reverse %}
+  <entry>
+    <title>{{ post.data.title }}</title>
+    <link href="https://edgardomunoznajar.github.io/posts/{{ post.page.fileSlug }}.html"/>
+    <id>https://edgardomunoznajar.github.io/posts/{{ post.page.fileSlug }}.html</id>
+    <updated>{{ post.page.date | rfc3339 }}</updated>
+    <summary>{{ post.data.summary }}</summary>
+  </entry>
+{%- endfor %}
+</feed>

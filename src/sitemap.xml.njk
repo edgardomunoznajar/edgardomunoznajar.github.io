@@ -1,0 +1,19 @@
+---
+permalink: /sitemap.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://edgardomunoznajar.github.io/</loc>
+  </url>
+  <url>
+    <loc>https://edgardomunoznajar.github.io/posts/</loc>
+  </url>
+{%- for post in collections.post %}
+  <url>
+    <loc>https://edgardomunoznajar.github.io/posts/{{ post.page.fileSlug }}.html</loc>
+    <lastmod>{{ post.page.date | isoDate }}</lastmod>
+  </url>
+{%- endfor %}
+</urlset>
